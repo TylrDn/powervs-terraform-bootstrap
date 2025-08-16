@@ -9,7 +9,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec5b5c7665fa7a75c7d160f05f6f9
       - run: terraform-docs markdown table --output-file README.md --output-mode inject .
       - run: terraform-docs markdown table --output-file modules/powervs-instance/README.md --output-mode inject modules/powervs-instance
       - run: git diff --exit-code
