@@ -1,0 +1,14 @@
+variable "ibmcloud_api_key" { type = string }
+variable "region" { type = string }
+variable "zone" { type = string }
+variable "powervs_service_instance_id" { type = string }
+variable "resource_group" { type = string }
+variable "ssh_key_name" { type = string }
+variable "aix_image_name" { type = string }
+variable "linux_image_name" { type = string }
+variable "aix_profile" { type = string }
+variable "linux_profile" { type = string }
+variable "owner" { type = string }
+variable "environment" { type = string }
+variable "cost_center" { type = string }
+variable "project" { type = string }

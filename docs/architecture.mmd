@@ -1,0 +1,10 @@
+graph TD
+    RG[Resource Group]
+    NET[PowerVS Network]
+    AIX[AIX LPAR]
+    LNX[Linux LPAR]
+    RG --> NET
+    RG --> AIX
+    RG --> LNX
+    NET --- AIX
+    NET --- LNX

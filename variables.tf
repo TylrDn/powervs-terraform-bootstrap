@@ -85,3 +85,15 @@ variable "environment" {
   description = "Environment tag"
   default     = "dev"
 }
+
+variable "cost_center" {
+  type        = string
+  description = "Cost center tag"
+  default     = "unknown"
+}
+
+variable "project" {
+  type        = string
+  description = "Project tag"
+  default     = "powervs-bootstrap"
+}

@@ -1,0 +1,15 @@
+name: Docs
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - README.md
+      - modules/**/README.md
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: terraform-docs markdown table --output-file README.md --output-mode inject .
+      - run: terraform-docs markdown table --output-file modules/powervs-instance/README.md --output-mode inject modules/powervs-instance
+      - run: git diff --exit-code
