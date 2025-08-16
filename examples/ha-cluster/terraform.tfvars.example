@@ -1,0 +1,7 @@
+ibmcloud_api_key          = "CHANGEME"
+region                    = "us-south"
+zone                      = "dal10"
+powervs_service_instance_id = "xxxx-xxxx"
+ssh_key_name              = "my-ssh-key"
+owner                     = "user"
+environment               = "prod"

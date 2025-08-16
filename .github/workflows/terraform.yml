@@ -1,0 +1,36 @@
+name: Terraform CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.tf'
+      - '.tflint.hcl'
+      - '.github/workflows/terraform.yml'
+  pull_request:
+    paths:
+      - '**.tf'
+      - '.tflint.hcl'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+      - name: Terraform init
+        run: terraform init -backend=false
+      - name: Terraform validate
+        run: terraform validate
+      - name: Setup tflint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
+      - name: TFLint
+        run: |
+          tflint --init
+          tflint
