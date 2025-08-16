@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.90.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: tflint
+      - id: terraform_docs
+        args: [--output-file, README.md, --output-mode, inject]

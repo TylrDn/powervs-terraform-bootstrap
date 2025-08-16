@@ -1,0 +1,16 @@
+name: Examples Plan
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - name: plan simple
+        working-directory: examples/simple
+        run: |
+          terraform init -backend-config=backend.hcl.example -input=false -lock=false
+          terraform plan -var-file=terraform.tfvars.example

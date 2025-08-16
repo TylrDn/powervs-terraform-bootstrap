@@ -10,9 +10,10 @@ locals {
   linux_memory_mb     = tonumber(local.linux_proc_mem[1]) * 1024
 
   base_tags = [
-    "project=powervs-bootstrap",
+    "project=${var.project}",
     "owner=${var.owner}",
-    "env=${var.environment}"
+    "env=${var.environment}",
+    "cost_center=${var.cost_center}"
   ]
 }
 
@@ -43,7 +44,11 @@ module "aix" {
   memory_mb           = local.aix_memory_mb
   sys_type            = "s922"
   proc_type           = "shared"
-  tags                = concat(local.base_tags, ["os=aix"])
+  owner               = var.owner
+  environment         = var.environment
+  cost_center         = var.cost_center
+  project             = var.project
+  extra_tags          = ["os=aix"]
   service_instance_id = var.powervs_service_instance_id
 }
 
@@ -57,7 +62,11 @@ module "linux" {
   memory_mb           = local.linux_memory_mb
   sys_type            = "s922"
   proc_type           = "shared"
-  tags                = concat(local.base_tags, ["os=linux"])
+  owner               = var.owner
+  environment         = var.environment
+  cost_center         = var.cost_center
+  project             = var.project
+  extra_tags          = ["os=linux"]
   service_instance_id = var.powervs_service_instance_id
 }
 

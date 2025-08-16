@@ -10,18 +10,30 @@ variable "instance_name" {
 
 variable "proc_type" {
   type        = string
-  description = "Processor type (shared or dedicated)"
+  description = "Processor type"
   default     = "shared"
+  validation {
+    condition     = contains(["shared", "dedicated"], var.proc_type)
+    error_message = "proc_type must be 'shared' or 'dedicated'"
+  }
 }
 
 variable "processors" {
   type        = number
   description = "Number of processors"
+  validation {
+    condition     = var.processors > 0
+    error_message = "processors must be > 0"
+  }
 }
 
 variable "memory_mb" {
   type        = number
   description = "Memory in MB"
+  validation {
+    condition     = var.memory_mb > 0
+    error_message = "memory_mb must be > 0"
+  }
 }
 
 variable "sys_type" {
@@ -32,7 +44,14 @@ variable "sys_type" {
 
 variable "image_name" {
   type        = string
-  description = "Image name"
+  description = "Image name (exact match)"
+  default     = null
+}
+
+variable "image_regex" {
+  type        = string
+  description = "Image name regex used when image_name is null"
+  default     = "^RHEL.*"
 }
 
 variable "ssh_key_name" {
@@ -45,8 +64,28 @@ variable "network_id" {
   description = "Network ID to attach"
 }
 
-variable "tags" {
+variable "owner" {
+  type        = string
+  description = "Owner tag"
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment tag"
+}
+
+variable "cost_center" {
+  type        = string
+  description = "Cost center tag"
+}
+
+variable "project" {
+  type        = string
+  description = "Project tag"
+}
+
+variable "extra_tags" {
   type        = list(string)
-  description = "List of tags"
+  description = "Additional tags"
   default     = []
 }
