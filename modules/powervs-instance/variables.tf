@@ -70,6 +70,10 @@ variable "ssh_key_name" {
 variable "network_ids" {
   type        = list(string)
   description = "Network IDs to attach"
+  validation {
+    condition     = length(var.network_ids) > 0
+    error_message = "At least one network_id must be provided"
+  }
 }
 
 variable "tags" {

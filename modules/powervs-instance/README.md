@@ -15,7 +15,7 @@ Simple module to create a PowerVS instance with standard tagging.
 | image_name | Image name (exact match) | string | null |
 | image_regex | Image name regex used when image_name is unset | string | null |
 | ssh_key_name | SSH key name | string | n/a |
-| network_ids | Network IDs to attach | list(string) | n/a |
+| network_ids | Network IDs to attach (must be non-empty) | list(string) | n/a |
 | tags | Tags to apply | list(string) | [] |
 
 ### Outputs
