@@ -17,19 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.6.0
+      - name: Install Terraform
+        run: |
+          curl -fsSL https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip -o terraform.zip
+          unzip terraform.zip
+          sudo mv terraform /usr/local/bin/terraform
       - name: Terraform fmt
         run: terraform fmt -check -recursive
       - name: Terraform init
         run: terraform init -backend=false
       - name: Terraform validate
         run: terraform validate
-      - name: Setup tflint
-        uses: terraform-linters/setup-tflint@v1
-        with:
-          tflint_version: latest
+      - name: Install TFLint
+        run: |
+          curl -fsSL https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_amd64.zip -o tflint.zip
+          unzip tflint.zip
+          sudo mv tflint /usr/local/bin/tflint
       - name: TFLint
         run: |
           tflint --init
