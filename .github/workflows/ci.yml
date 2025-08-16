@@ -7,16 +7,16 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+      - uses: actions/checkout@ac593985615ec5b5c7665fa7a75c7d160f05f6f9
+      - uses: hashicorp/setup-terraform@61a7a3b4564c72afed0d36cf50c0e6900b8f3596
         with:
           terraform_version: 1.6.0
       - run: terraform fmt -check -recursive
       - run: terraform init -backend=false
       - run: terraform validate
-      - uses: terraform-linters/setup-tflint@v3
+      - uses: terraform-linters/setup-tflint@5db7f17b827c201aa8fb2ba81c833d0c978a846b
       - run: tflint
-      - uses: aquasecurity/tfsec-action@v1
+      - uses: aquasecurity/tfsec-action@e6301e0f548d652e1bdf4cf0a1d57b36a0f5bd8f
         with:
           working-directory: .
       - run: checkov -q -d .

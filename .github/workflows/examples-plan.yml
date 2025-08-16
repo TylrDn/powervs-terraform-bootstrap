@@ -7,10 +7,10 @@ jobs:
   plan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+      - uses: actions/checkout@ac593985615ec5b5c7665fa7a75c7d160f05f6f9
+      - uses: hashicorp/setup-terraform@61a7a3b4564c72afed0d36cf50c0e6900b8f3596
       - name: plan simple
         working-directory: examples/simple
         run: |
-          terraform init -backend-config=backend.hcl.example -input=false -lock=false
+          terraform init -backend-config=backend.hcl -input=false -lock=false
           terraform plan -var-file=terraform.tfvars.example

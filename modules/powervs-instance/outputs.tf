@@ -18,8 +18,8 @@ output "console_url" {
   value = ibm_pi_instance.vm.console_url
 }
 
-output "network_id" {
-  value = var.network_id
+output "network_ids" {
+  value = var.network_ids
 }
 
 output "image" {

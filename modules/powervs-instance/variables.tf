@@ -22,8 +22,8 @@ variable "processors" {
   type        = number
   description = "Number of processors"
   validation {
-    condition     = var.processors > 0
-    error_message = "processors must be > 0"
+    condition     = var.processors > 0 && floor(var.processors) == var.processors
+    error_message = "processors must be a positive integer"
   }
 }
 
@@ -31,8 +31,8 @@ variable "memory_mb" {
   type        = number
   description = "Memory in MB"
   validation {
-    condition     = var.memory_mb > 0
-    error_message = "memory_mb must be > 0"
+    condition     = var.memory_mb > 0 && floor(var.memory_mb) == var.memory_mb
+    error_message = "memory_mb must be a positive integer"
   }
 }
 
@@ -50,8 +50,16 @@ variable "image_name" {
 
 variable "image_regex" {
   type        = string
-  description = "Image name regex used when image_name is null"
-  default     = "^RHEL.*"
+  description = "Image name regex used when image_name is unset"
+  default     = null
+  validation {
+    condition = (
+      var.image_name != null && var.image_name != ""
+    ) || (
+      var.image_regex != null && var.image_regex != ""
+    )
+    error_message = "Provide image_name or a non-empty image_regex"
+  }
 }
 
 variable "ssh_key_name" {
@@ -59,33 +67,13 @@ variable "ssh_key_name" {
   description = "SSH key name"
 }
 
-variable "network_id" {
-  type        = string
-  description = "Network ID to attach"
-}
-
-variable "owner" {
-  type        = string
-  description = "Owner tag"
-}
-
-variable "environment" {
-  type        = string
-  description = "Environment tag"
-}
-
-variable "cost_center" {
-  type        = string
-  description = "Cost center tag"
-}
-
-variable "project" {
-  type        = string
-  description = "Project tag"
-}
-
-variable "extra_tags" {
+variable "network_ids" {
   type        = list(string)
-  description = "Additional tags"
+  description = "Network IDs to attach"
+}
+
+variable "tags" {
+  type        = list(string)
+  description = "Tags to apply"
   default     = []
 }
